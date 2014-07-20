@@ -893,3 +893,18 @@ function i7197()
     ind2sub(size(S), 5)
 end
 @test i7197() == (2,2)
+
+# issue #7642
+A = [1,2]
+B = ["hey"]
+@test_throws MethodError append!(A,B)
+@test length(A) == 2
+
+@test_throws MethodError prepend!(A,B)
+@test length(A) == 2
+
+@test_throws MethodError splice!(A,2,B)
+@test length(A) == 2
+
+@test_throws MethodError splice!(A,2:2,B)
+@test length(A) == 2
